@@ -31,6 +31,14 @@
       headers: getDefaultHeaders(),
     }).then((r) => r.json())
   }
+
+  async function renameDevice(device) {
+    devices = await fetch("http://localhost:8765/api/v1/devices", {
+      method: "PUT",
+      headers: getDefaultHeaders(),
+      body: JSON.stringify(device),
+    }).then((r) => r.json())
+  }
 </script>
 
 {#if devices.length > 0}
@@ -39,13 +47,31 @@
       <tr>
         <td>Device Name</td>
         <td>IP address</td>
+        <td>MAC address</td>
       </tr>
     </thead>
     <tbody>
       {#each devices as device}
         <tr>
-          <td>{device.name}</td>
+          <td
+            ><input
+              id={`device${device.id}`}
+              value={device.name}
+              class="form-control "
+            />
+            &nbsp;<button
+              class="btn btn-lg btn-info"
+              style="margin-top:10px"
+              on:click={async () => {
+                device.name = document.getElementById(
+                  `device${device.id}`
+                ).value
+                await renameDevice(device)
+              }}>Rename</button
+            ></td
+          >
           <td>{device.ip}</td>
+          <td>{device.mac}</td>
         </tr>
       {/each}
     </tbody>

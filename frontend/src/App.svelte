@@ -383,6 +383,7 @@
                             <tr>
                               <td>Device Name</td>
                               <td>IP address</td>
+                              <td>MAC address</td>
                             </tr>
                           </thead>
                           <tbody>
@@ -390,6 +391,7 @@
                               <tr>
                                 <td>{device.name}</td>
                                 <td>{device.ip}</td>
+                                <td>{device.mac}</td>
                               </tr>
                             {/each}
                           </tbody>
